@@ -1,4 +1,7 @@
 from django.db import models
+import pytz
+from datetime import datetime
+
 
 
 class Passcard(models.Model):
@@ -15,7 +18,7 @@ class Passcard(models.Model):
 
 class Visit(models.Model):
     created_at = models.DateTimeField(auto_now=True)
-    passcard = models.ForeignKey(Passcard)
+    passcard = models.ForeignKey(Passcard, on_delete=models.CASCADE)
     entered_at = models.DateTimeField()
     leaved_at = models.DateTimeField(null=True)
 
@@ -25,3 +28,13 @@ class Visit(models.Model):
             entered=self.entered_at,
             leaved= "leaved at " + str(self.leaved_at) if self.leaved_at else "not leaved"
         )
+        
+    def get_duration(self):
+        if self.leaved_at:
+            now = self.leaved_at
+        else:
+            now = datetime.now(pytz.timezone('Europe/Moscow'))
+        d = now - self.entered_at
+        return d.total_seconds()
+
+      
