@@ -5,14 +5,14 @@ from django.utils.timezone import localtime
 
 
 def passcard_info_view(request, passcode):
-    passcard = Passcard.objects.all()[1]
+    passcard = Passcard.objects.filter(passcode=passcode)[0]
     this_passcard_visits = []
     for v in Visit.objects.filter(passcard=passcard):
         this_passcard_visits.append(
             {
                 "entered_at": localtime(v.entered_at),
                 "duration": v.format_duration(v.get_duration()),
-                "is_strange": False
+                "is_strange": v.is_long(),
             }
         )
     context = {

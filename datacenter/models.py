@@ -42,4 +42,10 @@ class Visit(models.Model):
         m = int((d % 3600) // 60)
         s = int((d % 3600) % 60)
         return '{:02d}:{:02d}:{:02d}'.format(h, m, s)
+        
+    def is_long(self):
+        if self.get_duration() > 3600:
+            return True
+        else:
+            return False
       
