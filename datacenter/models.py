@@ -36,5 +36,10 @@ class Visit(models.Model):
             now = datetime.now(pytz.timezone('Europe/Moscow'))
         d = now - self.entered_at
         return d.total_seconds()
-
+        
+    def format_duration(self, d=0):
+        h = int(d // 3600)
+        m = int((d % 3600) // 60)
+        s = int((d % 3600) % 60)
+        return '{:02d}:{:02d}:{:02d}'.format(h, m, s)
       

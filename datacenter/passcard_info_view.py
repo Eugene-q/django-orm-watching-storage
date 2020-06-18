@@ -1,19 +1,20 @@
 from datacenter.models import Passcard
 from datacenter.models import Visit
 from django.shortcuts import render
+from django.utils.timezone import localtime
 
 
 def passcard_info_view(request, passcode):
-    passcard = Passcard.objects.all()[0]
-    # Программируем здесь
-
-    this_passcard_visits = [
-        {
-            "entered_at": "11-04-2018",
-            "duration": "25:03",
-            "is_strange": False
-        },
-    ]
+    passcard = Passcard.objects.all()[1]
+    this_passcard_visits = []
+    for v in Visit.objects.filter(passcard=passcard):
+        this_passcard_visits.append(
+            {
+                "entered_at": localtime(v.entered_at),
+                "duration": v.format_duration(v.get_duration()),
+                "is_strange": False
+            }
+        )
     context = {
         "passcard": passcard,
         "this_passcard_visits": this_passcard_visits
