@@ -34,14 +34,14 @@ class Visit(models.Model):
             now = self.leaved_at
         else:
             now = datetime.now(pytz.timezone('Europe/Moscow'))
-        d = now - self.entered_at
-        return d.total_seconds()
+        duration = now - self.entered_at
+        return duration.total_seconds()
         
-    def format_duration(self, d=0):
-        h = int(d // 3600)
-        m = int((d % 3600) // 60)
-        s = int((d % 3600) % 60)
-        return '{:02d}:{:02d}:{:02d}'.format(h, m, s)
+    def format_duration(self, duration=0):
+        hours = int(duration // 3600)
+        minutes = int((duration % 3600) // 60)
+        seconds = int((duration % 3600) % 60)
+        return '{:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
         
     def is_long(self):              # визит больше часа считаем долгим
         if self.get_duration() > 3600:

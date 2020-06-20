@@ -8,7 +8,7 @@ def storage_information_view(request):
     visits = Visit.objects.filter(leaved_at=None)
     non_closed_visits = []
     for visit in visits:
-        if True in tuple(v.is_long() for v in Visit.objects.filter(passcard=visit.passcard)):
+        if True in tuple(vis.is_long() for vis in Visit.objects.filter(passcard=visit.passcard)):
             is_strange = True
         else:
             is_strange = False
