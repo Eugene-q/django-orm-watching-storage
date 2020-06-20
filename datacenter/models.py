@@ -4,7 +4,6 @@ from datetime import datetime
 from django.utils.timezone import localtime
 
 
-
 class Passcard(models.Model):
     is_active = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now=True)
@@ -44,7 +43,7 @@ class Visit(models.Model):
         s = int((d % 3600) % 60)
         return '{:02d}:{:02d}:{:02d}'.format(h, m, s)
         
-    def is_long(self):
+    def is_long(self):              # визит больше часа считаем долгим
         if self.get_duration() > 3600:
             return True
         else:

@@ -5,7 +5,6 @@ from django.utils.timezone import localtime
     
 
 def storage_information_view(request):
-    # Программируем здесь
     visits = Visit.objects.filter(leaved_at=None)
     non_closed_visits = []
     for visit in visits:
@@ -20,7 +19,6 @@ def storage_information_view(request):
                 "duration": visit.format_duration(visit.get_duration()),
                 "is_strange": is_strange
             })
-
     context = {
         "non_closed_visits": non_closed_visits,  # не закрытые посещения
     }
