@@ -44,8 +44,4 @@ class Visit(models.Model):
         return '{:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds)
         
     def is_long(self):              # визит больше часа считаем долгим
-        if self.get_duration() > 3600:
-            return True
-        else:
-            return False
-      
+        return self.get_duration() > 3600 or False

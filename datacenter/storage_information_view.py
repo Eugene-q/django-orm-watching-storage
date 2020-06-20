@@ -8,10 +8,8 @@ def storage_information_view(request):
     visits = Visit.objects.filter(leaved_at=None)
     non_closed_visits = []
     for visit in visits:
-        if True in tuple(vis.is_long() for vis in Visit.objects.filter(passcard=visit.passcard)):
-            is_strange = True
-        else:
-            is_strange = False
+        long_visits = tuple(vis for vis in Visit.objects.filter(passcard=visit.passcard) if vis.is_long())
+        is_strange = len(long_visits) > 0 or False
         non_closed_visits.append(
             {
                 "who_entered": visit.passcard.owner_name,
