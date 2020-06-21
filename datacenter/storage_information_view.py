@@ -12,7 +12,7 @@ def storage_information_view(request):
         is_strange = bool(long_visits)
         non_closed_visits.append(
             {
-                "who_entered": visit.passcard.owner_name,
+                "who_entered": visit.passcard,
                 "entered_at": localtime(visit.entered_at),
                 "duration": visit.format_duration(visit.get_duration()),
                 "is_strange": is_strange

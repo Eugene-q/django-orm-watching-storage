@@ -37,7 +37,7 @@
                     {% for visit in non_closed_visits %}
                     <tr>
                         <td class="table-element">{{ forloop.counter }}</td>
-                        <td class="table-element">{{ visit.who_entered }}</td>
+                        <td class="table-element"><a href="{% url 'passcard_info' passcode=visit.who_entered.passcode %}"><strong>{{ visit.who_entered }}</strong></a></td>
                             <td class="table-element"><strong>{{ visit.entered_at }}</strong></td>
                         <td class="table-element">{{ visit.duration }}</td>
                         <td class="table-element">{{ visit.is_strange }}</td>
